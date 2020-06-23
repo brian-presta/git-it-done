@@ -1,15 +1,23 @@
 var issueContainer = document.querySelector('#issues-container')
+var limitWarning = document.querySelector("#limit-warning")
 var getRepoIssues = function(repo) {
     var apiUrl = `https://api.github.com/repos/${repo}/issues?direction=asc`
     fetch(apiUrl).then(function(response) {
         if (response.ok) {
             response.json().then(function(data) {
                 displayIssues(data)
+                if (response.headers.get("Link")) {
+                    displayWarning(repo)
+                }
             })
         }
         else {alert("There was a problem with your request!")}
     })
 };
+var displayWarning = function(repo) {
+    limitWarning.innerHTML = 
+    `To see more than 30 issues, visit <a href="https://github.com/${repo}/issues">https://github.com/${repo}/issues</a>`;
+}
 var displayIssues = function(issues) {
     if (issues.length < 1) {
         issueContainer.innerHTML = 
