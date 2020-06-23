@@ -1,7 +1,7 @@
-var userForm = document.querySelector("#user-form")
-var nameInput = document.querySelector("#username")
-var repoContainer = document.querySelector('#repos-container')
-var repoSearchTerm = document.querySelector("#repo-search-term")
+var userForm = document.querySelector("#user-form");
+var nameInput = document.querySelector("#username");
+var repoContainer = document.querySelector('#repos-container');
+var repoSearchTerm = document.querySelector("#repo-search-term");
 var getUserRepos = function(user) {
     var apiUrl = `https://api.github.com/users/${user}/repos`
     fetch(apiUrl).then(function(response){
@@ -16,7 +16,7 @@ var getUserRepos = function(user) {
     .catch(function(error) {
         alert("Unable to connect to GitHub")
     })
-}
+};
 var displayRepos = function(repos,searchTerm) {
     if (repos.lenght < 1) {
         repoContainer.textContent = 'No repositories found.'
@@ -43,7 +43,7 @@ var displayRepos = function(repos,searchTerm) {
         repo.appendChild(status)
         repoContainer.appendChild(repo)
     });
-}
+};
 var formSubmitHandler = function(event) {
     event.preventDefault()
     var username = nameInput.value.trim()
@@ -51,5 +51,5 @@ var formSubmitHandler = function(event) {
         getUserRepos(username)
         nameInput.value = ""
     }
-}
-userForm.addEventListener("submit",formSubmitHandler)
+};
+userForm.addEventListener("submit",formSubmitHandler);
