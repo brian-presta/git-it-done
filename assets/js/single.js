@@ -2,6 +2,7 @@ var issueContainer = document.querySelector('#issues-container')
 var limitWarning = document.querySelector("#limit-warning")
 var getRepoIssues = function(repo) {
     var apiUrl = `https://api.github.com/repos/${repo}/issues?direction=asc`
+    console.log(apiUrl)
     fetch(apiUrl).then(function(response) {
         if (response.ok) {
             response.json().then(function(data) {
@@ -43,3 +44,10 @@ var displayIssues = function(issues) {
         issueContainer.appendChild(issueE1)
     });
 };
+var getRepoName = function() {
+    var queryString = document.location.search
+    var repoName = queryString.split('=')[1]
+    document.querySelector("#repo-name").textContent = repoName
+    getRepoIssues(repoName)
+}
+getRepoName()

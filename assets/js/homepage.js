@@ -26,8 +26,9 @@ var displayRepos = function(repos,searchTerm) {
     repoSearchTerm.textContent = searchTerm
     repos.forEach( x => {
         var repoName = x.owner.login + '/' + x.name
-        var repo = document.createElement('div')
+        var repo = document.createElement('a')
         repo.classList = 'list-item flex-row justify-space-between align-center'
+        repo.href = `./single-repo.html?repo=${repoName}`
         var title = document.createElement('span')
         title.textContent = repoName
         repo.appendChild(title)
