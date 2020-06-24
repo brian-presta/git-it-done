@@ -2,6 +2,7 @@ var userForm = document.querySelector("#user-form");
 var nameInput = document.querySelector("#username");
 var repoContainer = document.querySelector('#repos-container');
 var repoSearchTerm = document.querySelector("#repo-search-term");
+var languageButtons = document.querySelector("#language-buttons")
 var getUserRepos = function(user) {
     var apiUrl = `https://api.github.com/users/${user}/repos`
     fetch(apiUrl).then(function(response){
@@ -58,10 +59,19 @@ var getFeaturedRepos = function(language) {
     fetch(apiUrl)
     .then(function(response) {
         response.json().then(function(data){
-            console.log(data)
+            displayRepos(data.items,language)
         })
     })
     .catch(function(response){alert(`Error:${response.statusText}`)})
 
 } 
+var buttonClickHandler = function(event) {
+    language = event.target.getAttribute("data-language")
+    if (language) {
+        repoContainer.textContent = ''
+        getFeaturedRepos(language)
+    }
+    
+}
 userForm.addEventListener("submit",formSubmitHandler);
+languageButtons.addEventListener("click",buttonClickHandler)
