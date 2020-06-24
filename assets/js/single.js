@@ -12,7 +12,9 @@ var getRepoIssues = function(repo) {
                 }
             })
         }
-        else {alert("There was a problem with your request!")}
+        else {
+            document.location.replace('./index.html');
+        }
     })
 };
 var displayWarning = function(repo) {
@@ -47,7 +49,10 @@ var displayIssues = function(issues) {
 var getRepoName = function() {
     var queryString = document.location.search
     var repoName = queryString.split('=')[1]
-    document.querySelector("#repo-name").textContent = repoName
-    getRepoIssues(repoName)
+    if (repoName) {
+        document.querySelector("#repo-name").textContent = repoName
+        getRepoIssues(repoName)
+    }
+    else {document.location.replace('./index.html')}
 }
 getRepoName()
